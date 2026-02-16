@@ -36,14 +36,16 @@ the `main` function directly beneat this comment.
 data RunInfo = RunInfo {
   sumCluster :: Maybe Int,
   eulerCluster :: Maybe Int,
-  naiveParallel :: Maybe Bool
+  naiveParallel :: Maybe Bool,
+  skeletonCluster :: Maybe (Int, Int)
 }
 
 defaultRunInfo :: RunInfo
 defaultRunInfo = RunInfo {
     sumCluster = Nothing,
     eulerCluster = Nothing,
-    naiveParallel = Nothing
+    naiveParallel = Nothing,
+    skeletonCluster = Nothing
   }
 
 time_ :: IO a -> IO Double
@@ -60,6 +62,7 @@ parseArgs run [] = (run, [])
 parseArgs run ("-s":nb:xs) = parseArgs (run {sumCluster = Just (read nb :: Int)}) xs
 parseArgs run ("-e":nb:xs) = parseArgs (run {eulerCluster = Just (read nb :: Int)}) xs
 parseArgs run ("-n":xs) = parseArgs (run {naiveParallel = Just True}) xs
+parseArgs run ("-k":nb:nb2:xs) = parseArgs (run {skeletonCluster = Just (read nb :: Int, read nb2 :: Int)}) xs
 parseArgs run (_:xs) = parseArgs run xs
 
 -- | use this function to print the execution time, in seconds.
@@ -70,7 +73,7 @@ main = do
   let lower = read (head args) :: Int
       upper = read (args !! 1) :: Int
       (runInfo, _) = parseArgs defaultRunInfo args
-      theProgram = sumTotient (lower, upper, sumCluster runInfo, eulerCluster runInfo, naiveParallel runInfo)
+      theProgram = sumTotient (lower, upper, sumCluster runInfo, eulerCluster runInfo, naiveParallel runInfo, skeletonCluster runInfo)
 
   theTime <- time_ (evaluate (force theProgram))
   putStrLn (showFFloat (Just 2) theTime "")

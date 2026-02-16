@@ -4,11 +4,11 @@
 echo "input,cores,chunk_size,divider,runk1,runk2,runk3,runk4,runk5" > runtime.csv
 for inputSize in 15000 30000 100000
 do
-    for cores in 1 2 8 16 28 36 44 56 60 64
+    for cores in 1 2 4 8 16 32 64
     do
-        for chunk_size in 1 50 100 200 5000 1000 2000
+        for chunk_size in 1 50 100 500 1000 2000
         do
-            for divider in 1 2 4 8 10 12 16
+            for divider in 2 4 8 16
             do
                 echo -n $inputSize >> runtime.csv
                 echo -n "," >> runtime.csv
