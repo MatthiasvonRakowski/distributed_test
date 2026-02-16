@@ -1,0 +1,10 @@
+input,cores,runn1,runn2,runn3,runn4,runn5
+15000,1,Thread 0
+0.359524,Thread 0
+0.349783,Thread 0
+0.355221,Thread 0
+0.343026,Thread 0
+0.346026
+15000,2,Thread 0
+0.327176,Thread 0
+0.363151,

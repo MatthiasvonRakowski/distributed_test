@@ -1,0 +1,63 @@
+	Fri Feb 13 12:57 2026 Time and Allocation Profiling Report  (Final)
+
+	   haskell-totient +RTS -N -p -RTS 1 15000
+
+	total time  =        1.60 secs   (4985 ticks @ 1000 us, 16 processors)
+	total alloc =   3,085,520 bytes  (excludes profiling overheads)
+
+COST CENTRE MODULE                      SRC                                      %time %alloc
+
+hcf         TotientRange                src/TotientRange.hs:(86,1)-(87,25)        74.3    0.0
+euler       TotientRange                src/TotientRange.hs:(68,1)-(69,104)       12.5    7.8
+relprime    TotientRange                src/TotientRange.hs:78:1-27               12.2    0.0
+MAIN        MAIN                        <built-in>                                 1.0    7.0
+totients.\  TotientRange                src/TotientRange.hs:56:55-72               0.0    7.8
+evalList    Control.Parallel.Strategies Control/Parallel/Strategies.hs:560:1-26    0.0   19.4
+totients    TotientRange                src/TotientRange.hs:(56,1)-(57,149)        0.0   54.4
+CAF         GHC.IO.Handle.FD            <entire-module>                            0.0    1.1
+CAF         GHC.Float                   <entire-module>                            0.0    1.5
+
+
+                                                                                                          individual      inherited
+COST CENTRE        MODULE                      SRC                                     no.     entries  %time %alloc   %time %alloc
+
+MAIN               MAIN                        <built-in>                              152           0    1.0    7.0   100.0  100.0
+ CAF               GHC.Conc.Signal             <entire-module>                         267           0    0.0    0.0     0.0    0.0
+ CAF               GHC.Event.Poll              <entire-module>                         252           0    0.0    0.0     0.0    0.0
+ CAF               GHC.Event.Thread            <entire-module>                         251           0    0.0    0.0     0.0    0.0
+ CAF               GHC.Float                   <entire-module>                         244           0    0.0    1.5     0.0    1.5
+ CAF               GHC.IO.Encoding             <entire-module>                         232           0    0.0    0.1     0.0    0.1
+ CAF               GHC.IO.Encoding.Iconv       <entire-module>                         230           0    0.0    0.0     0.0    0.0
+ CAF               GHC.IO.Handle.FD            <entire-module>                         221           0    0.0    1.1     0.0    1.1
+ CAF               Main                        <entire-module>                         162           0    0.0    0.0     0.0    0.0
+  defaultRunInfo   Main                        app/Main.hs:(43,1)-(47,3)               316           1    0.0    0.0     0.0    0.0
+  main             Main                        app/Main.hs:(67,1)-(76,43)              304           1    0.0    0.0     0.0    0.0
+   main.lower      Main                        app/Main.hs:70:7-37                     324           0    0.0    0.0     0.0    0.0
+   main.upper      Main                        app/Main.hs:71:7-37                     326           0    0.0    0.0     0.0    0.0
+ CAF               TotientRange                <entire-module>                         161           0    0.0    0.0     0.0    0.0
+  sumTotient       TotientRange                src/TotientRange.hs:48:1-190            317           0    0.0    0.0     0.0    0.0
+ CAF               Control.Parallel.Strategies <entire-module>                         160           0    0.0    0.0     0.0    0.0
+  evalList         Control.Parallel.Strategies Control/Parallel/Strategies.hs:560:1-26 318           1    0.0    0.0     0.0    0.0
+  runEval          Control.Parallel.Strategies Control/Parallel/Strategies.hs:225:1-42 310           1    0.0    0.0     0.0    0.0
+ main              Main                        app/Main.hs:(67,1)-(76,43)              305           0    0.0    0.5    99.0   90.3
+  main.(...)       Main                        app/Main.hs:72:7-50                     313           1    0.0    0.0     0.0    0.0
+   parseArgs       Main                        app/Main.hs:(59,1)-(63,39)              314           3    0.0    0.0     0.0    0.0
+  main.lower       Main                        app/Main.hs:70:7-37                     323           1    0.0    0.1     0.0    0.1
+  main.runInfo     Main                        app/Main.hs:72:7-50                     315           1    0.0    0.0     0.0    0.0
+  main.upper       Main                        app/Main.hs:71:7-37                     325           1    0.0    0.1     0.0    0.1
+  time_            Main                        app/Main.hs:(50,1)-(55,23)              306           1    0.0    0.0    99.0   89.5
+   main.theProgram Main                        app/Main.hs:73:7-109                    307           1    0.0    0.0    99.0   89.5
+    eulerCluster   Main                        app/Main.hs:38:3-14                     329           1    0.0    0.0     0.0    0.0
+    naiveParallel  Main                        app/Main.hs:39:3-15                     312           1    0.0    0.0     0.0    0.0
+    sumCluster     Main                        app/Main.hs:37:3-12                     322           1    0.0    0.0     0.0    0.0
+    sumTotient     TotientRange                src/TotientRange.hs:48:1-190            308           1    0.0    0.0    99.0   89.5
+     totients      TotientRange                src/TotientRange.hs:(56,1)-(57,149)     321           1    0.0   54.4    99.0   70.0
+      totients.\   TotientRange                src/TotientRange.hs:56:55-72            328       15000    0.0    7.8    99.0   15.6
+       euler       TotientRange                src/TotientRange.hs:(68,1)-(69,104)     330       15000   12.5    7.8    99.0    7.8
+        relprime   TotientRange                src/TotientRange.hs:78:1-27             331   112507500   12.2    0.0    86.5    0.0
+         hcf       TotientRange                src/TotientRange.hs:(86,1)-(87,25)      332   975368116   74.3    0.0    74.3    0.0
+     using         Control.Parallel.Strategies Control/Parallel/Strategies.hs:348:1-35 309           1    0.0    0.0     0.0   19.4
+      runEval      Control.Parallel.Strategies Control/Parallel/Strategies.hs:225:1-42 311           0    0.0    0.0     0.0   19.4
+       evalList    Control.Parallel.Strategies Control/Parallel/Strategies.hs:560:1-26 320           0    0.0   19.4     0.0   19.4
+        rseq       Control.Parallel.Strategies Control/Parallel/Strategies.hs:440:1-26 327       15000    0.0    0.0     0.0    0.0
+     evalList      Control.Parallel.Strategies Control/Parallel/Strategies.hs:560:1-26 319           0    0.0    0.0     0.0    0.0

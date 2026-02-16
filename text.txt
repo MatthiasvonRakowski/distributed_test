@@ -1,0 +1,112 @@
+Section 1 : Introduction                Matthias : ??
+
+The objectif of this coursework was to learn and understand the concept of parallelism. We worked with two programming model: 
+imperative using C language with OpenMP and a declarative model using Parallel Haskell.
+We paralelised sources codes in both languages and we compared their performance. To achieve this, we used benchmarks to obtain a clear and 
+precise evaluation of our work.
+For this purpose, we evaluated the efficiency through execution time, speedup, and scalability.
+
+For this work, we decided to parallelise the Euler totient function and the Sum totient function. To go further, we explored different parallelisation strategies 
+between these two functions. Our code can run with only one parallelised function, with the other one, or with both executed in parallel 
+at the same time.
+Moreover, we implemented a version of the code that allows us to compare executions under various parameters, such as the number of cores or the chunk size.
+Thanks to this implementation, we propose an optimised version based on the analysis of many executed cases.
+
+All computations were carried out on the Robotarium cluster, on a 64-bit Linux node (x86_64) equipped with an AMD Opteron 6320 processor 
+(8 threads, up to 2.8 GHz), with 31 GB of RAM and a NUMA (Non-Uniform Memory Access) architecture with two memory nodes.
+Storage is distributed between a local system disk and a dedicated high-capacity /home space (around 32TB), making it suitable for scientific 
+computation and data storage, which was used for this work.
+
+
+
+Section 2 : Sequential Performance Measurements
+
+
+
+
+
+
+Section 6: Parallel computing concepts
+1. What hardware architectures trends have motivated the development of parallelism features in programming languages and libraries?
+
+limites physiques :
+trop de chaleur,
+trop de consommation d’énergie,
+impossibilité d’augmenter la fréquence indéfiniment
+ralentissement de l'évolution des microchip
+
+solution :
+ajout de plusieurs cœurs sur un même processeur (multi-core),
+apparition de processeurs massivement parallèles (GPU),
+présence de vecteurs SIMD,       --> SIMD (Single Instruction, Multiple Data) est une architecture de processeur et une technique de programmation permettant d'exécuter une seule instruction sur plusieurs données simultanément
+architectures plus complexes comme le NUMA (mémoire non uniforme).      --> Chaque CPU possède sa propre mémoire locale rapide, mais peut accéder à la mémoire distante (d'un autre CPU)
+
+
+
+2. Why is the software industry increasingly embracing parallel computing?
+
+un programme séquentiel n’en utilise qu’un seul coeur donc : sans parallélisme, gaspille les ressources matérielles et les performances stagnent.
+
+Le calcul parallèle permet :
+de réduire le temps d’exécution,
+d’augmenter la capacité de traitement (plus de données, plus vite),
+de mieux gérer l’efficacité énergétique.
+
+C’est devenu indispensable dans les calculs gourmants en energie:
+le calcul scientifique,
+l’IA et le machine learning,
+le traitement de grandes données,
+les systèmes temps réel.
+
+
+
+3. Why is parallel programming hard?
+
+elle cree de nouveaux pbs qui n exstent pad en sequentiel
+
+Principales difficultés :
+Synchronisation entre threads (verrous, barrières),
+Conditions de course (race conditions),
+Deadlocks,
+accès concurrents à la mémoire.
+
+En plus :
+il faut bien diviser le travail entre les cœurs,
+éviter qu’un cœur travaille beaucoup pendant que d’autres attendent,
+limiter les coûts de communication et de synchronisation.
+
+
+Enfin, les bugs sont plus difficiles a resoudre et corriger car le comportement peut changer d’une exécution à l’autre.
+
+
+
+
+4. What steps should a programmer take to translate mathematical algorithms to parallel code, to ensure that their code runs on multi-core processors with high parallelism efficiency?
+
+Analyser l’algorithme
+identifier les calculs indépendants,
+repérer les dépendances de données.
+
+Choisir une stratégie de parallélisme
+parallélisme de données (ex : boucles),
+parallélisme de tâches (ex : fonctions indépendantes).
+
+Décomposer le problème
+répartir le travail entre les cœurs,
+assurer un bon équilibrage de charge.
+
+Implémenter le code parallèle
+utiliser les bons outils (OpenMP, Parallel Haskell),
+faire attention à la mémoire, aux caches et à la synchronisation.
+
+Mesurer et optimiser
+comparer avec la version séquentielle,
+analyser le speedup et la scalabilité,
+corriger les goulets d’étranglement (hotspots). ??
+
+
+
+
+
+
+
