@@ -10,7 +10,7 @@ do
     do
         echo -n "," >> runtime.csv
         # to test on any computer (e.g. in EM 2.50 or your laptop)
-        printf "%s" "$(srun --partition=amd-longq --cpus-per-task=$cores cabal exec -- haskell-totient 1 $inputSize +RTS -N$cores)" >> runtime.csv
+        printf "%s" "$(cabal exec -- haskell-totient 1 $inputSize)" >> runtime.csv
     done
     for k in 1 2 3
     do
