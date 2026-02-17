@@ -27,6 +27,25 @@ import Data.Bool (Bool(True))
 -- 2. Applies Euler function to every element of the list
 -- 3. Returns the sum of the results
 
+-- devide and conquer
+divideAndConquer :: (problem -> solution) -> problem -> (problem -> Bool) ->
+  ([solution] -> solution) -> (problem -> [problem]) -> solution
+divideAndConquer f arg threshold conquer divide = go arg
+  where
+    go splitData = case divide splitData of
+      [] ->
+        f splitData
+      splits -> conquer results `using` strat
+        where
+          results = map go splits
+          strat x = do
+            mapM_ chosenStrategy results
+            return x
+          chosenStrategy
+            | threshold splitData = rseq
+            | otherwise = rpar
+
+
 -- sequential
 sumTotientSequential :: (Int, Int) -> Int
 sumTotientSequential (lower, upper) =
@@ -44,9 +63,18 @@ sumTotientEvalList (lower, upper) =
 --
 -- They should always have the same type as the two functions above, i.e.:
 --
-sumTotient :: (Int, Int, Maybe Int, Maybe Int, Maybe Bool) -> Int
-sumTotient (lower, upper, sumCluster, eulCluster, naiveParallel) = sum (totients lower upper sumCluster eulCluster `using` if naiveParallel == Just True then parList rpar else evalList rseq)
-
+sumTotient :: (Int, Int, Maybe Int, Maybe Int, Maybe Bool, Maybe (Int, Int)) -> Int
+sumTotient (lower, upper, sumCluster, eulCluster, naiveParallel, Nothing) = sum (totients lower upper sumCluster eulCluster `using` if naiveParallel == Just True then parList rpar else evalList rseq)
+sumTotient (lower, upper, sumClust, eulClust, _, Just (skelClust, divider)) = 
+  divideAndConquer baseCase (lower, upper) isSmall conquer split
+  where
+    baseCase (l, u) = sum (totients l u sumClust eulClust)
+    isSmall (l, u) = (u - l) <= skelClust
+    conquer results = sum results
+    split (l, u)
+      | l == u    = []
+      | otherwise = let mid = l + (u - l) `div` divider
+                    in [(l, mid), (mid + 1, u)]
 
 -------------------
 -- Totient function
