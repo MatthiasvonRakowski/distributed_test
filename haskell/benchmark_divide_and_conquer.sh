@@ -17,8 +17,8 @@ do
                 for k in 1 2 3 4 5
                 do
                     echo -n "," >> runtime_dnc_haskell.csv
-                    # printf "%s" "$(srun --partition=amd-longq --cpus-per-task=$cores cabal exec -- haskell-totient 1 $inputSize -k $chunk_size $divider +RTS -N$cores)" >> runtime_dnc_haskell.csv
-                    printf "%s" "$(cabal exec -- haskell-totient 1 $inputSize -k $chunk_size $divider +RTS -N$cores)" >> runtime_dnc_haskell.csv
+                    printf "%s" "$(srun --partition=amd-longq --cpus-per-task=$cores cabal exec -- haskell-totient 1 $inputSize -k $chunk_size $divider +RTS -N$cores)" >> runtime_dnc_haskell.csv
+                    # printf "%s" "$(cabal exec -- haskell-totient 1 $inputSize -k $chunk_size $divider +RTS -N$cores)" >> runtime_dnc_haskell.csv
                 done
                 echo "" >> runtime_dnc_haskell.csv
             done
